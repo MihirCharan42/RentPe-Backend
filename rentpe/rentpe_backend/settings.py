@@ -29,7 +29,7 @@ SECRET_KEY = "django-insecure-z9vowa130x&9nw4i3n(+#)p&1&hg%)okl9%o143g0ievw%2jc4
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'https://rentpe-api-ygwi.onrender.com'
+    'rentpe-api-ygwi.onrender.com'
 ]
 
 CORS_ALLOWED_ORIGINS = [
