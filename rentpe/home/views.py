@@ -72,10 +72,9 @@ def create_home(req):
     
 @api_view(["PUT"])
 @authentication_classes([JWTAuthentication])
-def update_home(req):
+def update_home(req, home_id):
     body = json.loads(req.body.decode("UTF-8"))
     try:
-        home_id = body["home_id"]
         address = body["address"]
         description = body["description"]
 

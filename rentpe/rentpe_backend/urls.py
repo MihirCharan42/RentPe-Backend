@@ -30,7 +30,7 @@ urlpatterns = [
 
     #home
     path("create-home/", create_home, name='create_home'),
-    path("update-home/", update_home, name='update_home'),
+    path("update-home/<int:home_id>/", update_home, name='update_home'),
     path("read-home/", read_home, name='read_home'),
 
     #transaction
