@@ -26,7 +26,7 @@ def create_transaction(req):
             tenant_user = home.tenant_user
             landlord_user = home.landlord_user
 
-            data = Transaction(home = home, tenant_user = tenant_user, landlord_user = landlord_user, amount = amount)
+            data = Transaction(home = home, tenant_user = tenant_user, landlord_user = landlord_user, amount = amount, transaction_id = transaction_id)
             data.save()
             res = {"flag": True, "message": "Transaction has been created"}
             return JsonResponse(res, safe= False, status = 200)
