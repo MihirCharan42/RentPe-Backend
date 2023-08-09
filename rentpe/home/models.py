@@ -16,6 +16,7 @@ class Home(models.Model):
     rent = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add= True)
     updated_at = models.DateTimeField(auto_now= True)
+    images = models.JSONField(default=dict)
     
     class Meta:
         db_table = "home"

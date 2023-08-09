@@ -14,11 +14,20 @@ from pathlib import Path
 import datetime
 import dj_database_url
 import os
-
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+import utils
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+CLOUDINARY_URL= utils.CLOUDINARY_URL
 
+cloudinary.config( 
+  cloud_name = utils.CLOUD_NAME, 
+  api_key = utils.API_KEY, 
+  api_secret = utils.API_SECRET
+)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
