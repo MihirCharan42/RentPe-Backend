@@ -5,6 +5,7 @@ from django.http import JsonResponse
 import json
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 from rest_framework.permissions import AllowAny
+from django.db.models import Q
 
 # Create your views here.
 @api_view(['POST'])
@@ -16,11 +17,16 @@ def register_user(req):
         mobile = body["mobile"]
         email = body["email"]
         password = body["password"]
-
-        data = User(name = name, email = email, mobile = mobile, password = password)
-        data.save()
-        res = {"flag" : True}
-        return JsonResponse(res, safe= False)
+        try:
+            user = User.objects.get(Q(mobile = mobile) | Q(email = email))
+            if(user is not None):
+                res = {"flag" : True, "message": "User Already Exists!"}
+                return JsonResponse(res, safe= False)
+        except User.DoesNotExist:
+            data = User(name = name, email = email, mobile = mobile, password = password)
+            data.save()
+            res = {"flag" : True, "message": "User is created successfully!"}
+            return JsonResponse(res, safe= False)
     except Exception as e:
         res = {"flag" : False, "message": str(e)}
         return JsonResponse(res, safe= False)
@@ -55,7 +61,6 @@ def login_user(req):
 def new_access_token(req):
     body = json.loads(req.body.decode("UTF-8"))
     try:
-        user = req.user
         refresh_token = body["jwt_refresh_token"]
         new_token = RefreshToken(refresh_token)
         res = {"flag" : True, "jwt_access_token": str(new_token.access_token)}

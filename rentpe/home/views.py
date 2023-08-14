@@ -61,7 +61,8 @@ def create_home(req):
                     rent = rent,
                     tenant_user = tenant_user,
                     landlord_user = landlord_user,
-                    images = public_ids)
+                    images = public_ids,
+                    rent_due = datetime.today().replace(month=datetime.today().month+1, day = 1))
         data.save()
         res = {"flag": True, "message": "Home has been created"}
         return JsonResponse(res, safe= False, status = 200)
@@ -136,7 +137,10 @@ def read_home(req):
             "landlord_phone", 
             "created_at", 
             "updated_at",
-            "rent")
+            "rent",
+            "last_payment",
+            "rent_due",
+            "images")
         data = list(homes)
         if len(data) == 0 :
             res ={"flag": False, "message": "No homes were created"}
@@ -145,16 +149,18 @@ def read_home(req):
         return JsonResponse(res, safe= False, status=200)
     except Home.DoesNotExist :
         res = {"flag": False, "message": "No homes were found"}
-        return JsonResponse(res, safe= False, status=500)  
+        return JsonResponse(res, safe= False, status=200)  
     except Exception as e:
         res = {"flag": False, "message": str(e)}
         return JsonResponse(res, safe= False, status=500) 
     
 def give_tenant_user(phone_number):
     try:
+        print(phone_number)
         tenant_user = User.objects.get(mobile = phone_number)
         return tenant_user
     except User.DoesNotExist:
+        print("here")
         return "Not Found"
     except Exception as e:
         return e

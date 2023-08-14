@@ -1,5 +1,6 @@
 from django.db import models
 from authentication.models import User
+from datetime import datetime
 # Create your models here.
 class Home(models.Model):
     description = models.CharField(max_length=2500)
@@ -18,5 +19,8 @@ class Home(models.Model):
     updated_at = models.DateTimeField(auto_now= True)
     images = models.JSONField(default=dict)
     
+    last_payment = models.DateField(null=True)
+    rent_due = models.DateField(null=True)
+
     class Meta:
         db_table = "home"

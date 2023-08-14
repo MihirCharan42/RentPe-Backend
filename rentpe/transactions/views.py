@@ -9,6 +9,7 @@ from .verify import JWTAuthentication
 from rest_framework.permissions import *
 from authentication.models import User
 from django.db.models import Q
+from datetime import datetime
 
 # Create your views here.
 
@@ -25,6 +26,10 @@ def create_transaction(req):
             home = Home.objects.get(id = home_id)
             tenant_user = home.tenant_user
             landlord_user = home.landlord_user
+
+            home.last_payment = datetime.today()
+            home.rent_due = datetime.today().replace(month=datetime.today().month+1)
+            home.save()
 
             data = Transaction(home = home, tenant_user = tenant_user, landlord_user = landlord_user, amount = amount, transaction_id = transaction_id)
             data.save()

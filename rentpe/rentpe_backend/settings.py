@@ -37,9 +37,8 @@ SECRET_KEY = "django-insecure-z9vowa130x&9nw4i3n(+#)p&1&hg%)okl9%o143g0ievw%2jc4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    'rentpe-api-ygwi.onrender.com'
-]
+ALLOWED_HOSTS = ['*']
+
 
 CORS_ALLOWED_ORIGINS = [
     'https://rentpe-api-ygwi.onrender.com'
